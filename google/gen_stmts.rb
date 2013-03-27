@@ -16,7 +16,8 @@ end
 
 class Goog < Struct.new(:date, :open, :high, :low, :close, :volume, :adj); end
 
-puts "use bucket \"Google\";";
+puts "connect \"127.0.0.1\" pb 10017;"
+puts "use bucket \"Google\";"
 
 CSV.foreach("goog.csv", :headers => true) do |row|
   item = Goog.new(row["Date"],
