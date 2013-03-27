@@ -1,4 +1,5 @@
 require 'CSV'
+require 'date'
 require 'json'
 require 'json/add/core'
 
@@ -17,19 +18,24 @@ end
 class Goog < Struct.new(:date, :open, :high, :low, :close, :volume, :adj); end
 
 puts "connect \"127.0.0.1\" pb 10017;"
+puts ""
 puts "use bucket \"Google\";"
+puts ""
 
 CSV.foreach("goog.csv", :headers => true) do |row|
+  date = Date.strptime(row["Date"],"%Y-%m-%d")
   item = Goog.new(row["Date"],
                   row["Open"],
-                  row["Hight"],
+                  row["High"],
                   row["Low"],
                   row["Close"],
                   row["Volume"],
                   row["Adj Close"])
-  puts "store \"#{row["Date"]}\" with json ~%~"
+  puts "store \"#{row["Date"]}\""
+  puts "  with index \"year_int\" = \"#{date.year}\" "
+  puts "  and json "
+  puts "~%~"
   puts JSON.pretty_generate(item)
   puts "~%~;"
-  puts ""
 end
 
