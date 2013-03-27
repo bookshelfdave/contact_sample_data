@@ -30,6 +30,6 @@ CSV.foreach("goog.csv", :headers => true) do |row|
   puts "store \"#{row["Date"]}\" with json ~%~"
   puts JSON.pretty_generate(item)
   puts "~%~;"
-  puts " "
+  puts ""
 end
 

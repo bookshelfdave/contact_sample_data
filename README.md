@@ -7,6 +7,10 @@ Sample data for [Contact](https://github.com/metadave/contact).
 
 To use this sample data:
 
+1) Modify the first connect line in the file google.contact to reflect the IP + port of Riak.
+
+2) Import the data using something like the following command:
+
 	./contact.sh --infile ~/src/contact_sample_data/google/google.contact
 	
 	
