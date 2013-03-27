@@ -43,7 +43,7 @@ Instead of JSON, this will display:
 ```
 Google data for 2007-05-31
   Low:497.06
-  High:null
+  High:508.78
   Volume:8924300
 ```
 
