@@ -14,6 +14,9 @@ All data will be stored in a bucket named "Google" as JSON. The key is the date 
 
 #### To render the stock data:
 
+If you don't want to look at raw JSON output from Riak, you can create a custom fetch formatter.
+
+
 ```
 set action postfetch with javascript 
 ~%~
@@ -30,6 +33,16 @@ if(riak_object != undefined) {
 use bucket "Google";
 fetch "2007-05-31";
 ```
+
+Instead of JSON, this will display:
+
+```
+Google data for 2007-05-31
+  Low:497.06
+  High:null
+  Volume:8924300
+```
+
 
 #License
 http://www.apache.org/licenses/LICENSE-2.0.html
