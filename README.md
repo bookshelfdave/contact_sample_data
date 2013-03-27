@@ -7,6 +7,9 @@ Sample data for [Contact](https://github.com/metadave/contact).
 
 To use this sample data:
 
+0) Be sure that you have [Level DB](http://docs.basho.com/riak/latest/tutorials/choosing-a-backend/LevelDB/) enabled in 
+Riak. Bitcask does not support secondary indexes.
+
 1) Modify the first connect line in the file google.contact to reflect the IP + port of Riak.
 
 2) Import the data using something like the following command:
