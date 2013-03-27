@@ -2,6 +2,18 @@ require 'CSV'
 require 'json'
 require 'json/add/core'
 
+class Struct
+  def to_map
+    map = Hash.new
+    self.members.each { |m| map[m] = self[m] }
+    map
+  end
+
+  def to_json(*a)
+    to_map.to_json(*a)
+  end
+end
+
 class Goog < Struct.new(:date, :open, :high, :low, :close, :volume, :adj); end
 
 puts "use bucket \"Google\";";
