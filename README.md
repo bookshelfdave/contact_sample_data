@@ -30,10 +30,10 @@ set action postfetch with javascript
 if(riak_object != undefined) { 
     var v = riak_object.getValueAsString(); 
     var j = JSON.parse(v);
-    out.println("Google data for " + j.date);
-    out.println("  Low:" + j.low);
-    out.println("  High:" + j.high);
-    out.println("  Volume:" + j.volume);
+    println("Google data for " + j.date);
+    println("  Low:" + j.low);
+    println("  High:" + j.high);
+    println("  Volume:" + j.volume);
 }
 ~%~;
 
