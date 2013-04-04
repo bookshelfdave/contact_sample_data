@@ -14,7 +14,7 @@ Riak.** Bitcask does not support secondary indexes.
 
 2) Import the data using something like the following command:
 
-	./contact.sh --infile ~/src/contact_sample_data/google/google.contact
+	./contact --infile ~/src/contact_sample_data/google/google.contact
 	
 	
 All data will be stored in a bucket named "Google" as JSON. The key is the date of the stock value.
