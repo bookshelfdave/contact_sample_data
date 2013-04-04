@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Contact sample data : Sample data for Contact" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Contact sample data</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/metadave/contact_sample_data">View on GitHub</a>
+
+          <h1 id="project_title">Contact sample data</h1>
+          <h2 id="project_tagline">Sample data for Contact</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/metadave/contact_sample_data/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/metadave/contact_sample_data/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Contact Sample Data</h1>
+
+<p>Sample data for <a href="https://github.com/metadave/contact">Contact</a>.</p>
+
+<h2>Google Stock</h2>
+
+<p>To use this sample data:</p>
+
+<p>0) <strong>Be sure that you have <a href="http://docs.basho.com/riak/latest/tutorials/choosing-a-backend/LevelDB/">Level DB</a> enabled in 
+Riak.</strong> Bitcask does not support secondary indexes.</p>
+
+<p>1) Modify the first connect line in the file google.contact to reflect the IP + port of Riak.</p>
+
+<p>2) Import the data using something like the following command:</p>
+
+<pre><code>./contact --infile ~/src/contact_sample_data/google/google.contact
+</code></pre>
+
+<p>All data will be stored in a bucket named "Google" as JSON. The key is the date of the stock value.</p>
+
+<h4>To change the default output of the stock data:</h4>
+
+<p>If you don't want to look at raw JSON output from Riak, you can create a custom fetch formatter.</p>
+
+<pre><code>set action postfetch with javascript 
+~%~
+if(riak_object != undefined) { 
+    var v = riak_object.getValueAsString(); 
+    var j = JSON.parse(v);
+    println("Google data for " + j.date);
+    println("  Low:" + j.low);
+    println("  High:" + j.high);
+    println("  Volume:" + j.volume);
+}
+~%~;
+
+use bucket "Google";
+fetch "2007-05-31";
+</code></pre>
+
+<p>Instead of JSON, this will display:</p>
+
+<pre><code>Google data for 2007-05-31
+  Low:497.06
+  High:508.78
+  Volume:8924300
+</code></pre>
+
+<h3>2i Query</h3>
+
+<pre><code>use bucket "Google";
+query2i with index "year_int" and value "2010";
+
+[2010-04-05, 2010-03-30, 2010-02-18, 2010-01-21, 2010-01-20, 2010-01-06, 2010-01-04, 2010-04-12, 2010-03-22, 2010-03-12, 2010-03-09, 2010-02-24, 2010-02-08, 2010-02-03, 2010-02-01, 2010-04-28, 2010-03-25, 2010-03-24, 2010-01-12, 2010-03-26, 2010-02-05, 2010-01-25, 2010-04-22, 2010-04-21, 2010-04-15, 2010-02-25, 2010-02-16, 2010-01-15, 2010-04-14, 2010-04-06, 2010-03-04, 2010-04-09, 2010-03-08, 2010-05-04, 2010-02-26, 2010-02-23, 2010-02-10, 2010-02-04, 2010-04-26, 2010-04-23, 2010-04-16, 2010-03-19, 2010-02-12, 2010-01-29, 2010-05-05, 2010-04-19, 2010-03-03, 2010-02-17, 2010-03-18, 2010-03-11, 2010-03-23, 2010-01-08, 2010-05-03, 2010-04-13, 2010-03-16, 2010-02-02, 2010-01-05, 2010-04-30, 2010-04-08, 2010-03-29, 2010-03-02, 2010-03-01, 2010-02-22, 2010-01-07, 2010-01-13, 2010-04-29, 2010-04-07, 2010-03-10, 2010-01-28, 2010-03-17, 2010-03-15, 2010-03-05, 2010-01-27, 2010-01-26, 2010-03-31, 2010-02-19, 2010-02-11, 2010-01-22, 2010-01-14, 2010-01-11, 2010-04-20, 2010-04-27, 2010-04-01, 2010-02-09, 2010-01-19]
+
+
+query2i and fetch with index "year_int" and value "2010";
+
+Google data for 2010-04-09
+  Low:564.00
+  High:568.77
+  Volume:2056600
+Google data for 2010-04-05
+  Low:569.00
+  High:574.88
+  Volume:1901500
+Google data for 2010-03-30
+  Low:560.28
+  High:567.63
+  Volume:1977900
+Google data for 2010-03-08
+  Low:561.01
+  High:565.18
+  Volume:2386400
+Google data for 2010-02-18
+  Low:536.14
+  High:545.01
+  Volume:2336900
+Google data for 2010-01-21
+  Low:572.25
+  High:586.82
+  Volume:6307700
+Google data for 2010-01-20
+  Low:575.29
+  High:585.98
+  Volume:3250700
+  ...
+</code></pre>
+
+<h1>License</h1>
+
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0.html">http://www.apache.org/licenses/LICENSE-2.0.html</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Contact sample data maintained by <a href="https://github.com/metadave">metadave</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
