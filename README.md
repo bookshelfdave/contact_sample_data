@@ -92,6 +92,11 @@ Google data for 2010-01-20
   ...
 ```
 
+## Baseball data
+(work in progress)
+http://seanlahman.com/files/database/lahman2012-csv.zip
+
+
 
 #License
 http://www.apache.org/licenses/LICENSE-2.0.html
