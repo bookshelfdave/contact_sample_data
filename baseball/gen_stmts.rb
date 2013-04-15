@@ -23,7 +23,7 @@ class Master < Struct.new(:lahmanID,:playerID,:managerID,:hofID,:birthYear,:birt
 puts "use bucket \"BaseballMaster\";"
 puts ""
 
-CSV.foreach("Master.csv", :headers => true) do |row|
+CSV.foreach("Master.csv", :headers => true, :encoding => "ISO8859-1") do |row|
   item = Master.new(
     row["lahmanID"],
     row["playerID"],
